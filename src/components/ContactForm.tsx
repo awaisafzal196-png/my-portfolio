@@ -51,6 +51,8 @@ export default function ContactForm() {
   const [fields, setFields] = useState<FormFields>(initialFields);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [serverError, setServerError] = useState("");
 
   function handleChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -69,9 +71,10 @@ export default function ContactForm() {
     }
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setSubmitted(false);
+    setServerError("");
 
     const validationErrors = validateForm(fields);
     setErrors(validationErrors);
@@ -80,16 +83,37 @@ export default function ContactForm() {
       return;
     }
 
-    console.log("Contact form submitted:", {
-      name: fields.name.trim(),
-      email: fields.email.trim(),
-      phoneOrSubject: fields.phoneOrSubject.trim(),
-      message: fields.message.trim(),
-    });
+    setSubmitting(true);
 
-    setSubmitted(true);
-    setFields(initialFields);
-    setErrors({});
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: fields.name.trim(),
+          email: fields.email.trim(),
+          phoneOrSubject: fields.phoneOrSubject.trim(),
+          message: fields.message.trim(),
+        }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.error || "Something went wrong.");
+      }
+
+      setSubmitted(true);
+      setFields(initialFields);
+      setErrors({});
+    } catch (error) {
+      setServerError(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again later.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -104,7 +128,16 @@ export default function ContactForm() {
           role="status"
           className="rounded-lg border border-emerald-200 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-950/50 px-4 py-3 text-sm text-emerald-800 dark:text-emerald-300"
         >
-          Thank you! Your message has been logged to the console.
+          Thank you! Your message has been sent successfully.
+        </div>
+      )}
+
+      {serverError && (
+        <div
+          role="alert"
+          className="rounded-lg border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-950/50 px-4 py-3 text-sm text-red-800 dark:text-red-300"
+        >
+          {serverError}
         </div>
       )}
 
@@ -261,9 +294,10 @@ export default function ContactForm() {
 
       <button
         type="submit"
-        className="inline-flex w-full items-center justify-center rounded-lg bg-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-emerald-500 hover:scale-[1.02] hover:shadow-lg hover:shadow-emerald-500/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600 sm:w-auto"
+        disabled={submitting}
+        className="inline-flex w-full items-center justify-center rounded-lg bg-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-emerald-500 hover:scale-[1.02] hover:shadow-lg hover:shadow-emerald-500/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100 sm:w-auto"
       >
-        Send Message
+        {submitting ? "Sending..." : "Send Message"}
       </button>
     </form>
   );

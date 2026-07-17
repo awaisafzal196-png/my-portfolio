@@ -1,17 +1,16 @@
 const experience = [
   {
-    role: "3d environment builder",
-    company: "Silk Solutions",
-    period: "2022-2023",
+    role: "Simulation Based Training Specialist AR/VR",
+    company: "Final Year Project",
+    period: "2025-2026",
     description:
-      "Building 3d environments for clients using Blender and Unreal Engine.",
+      "Building Simulation Based Training for clients using Blender and Unreal Engine.",
   },
   {
-    role: "Mern Stack Developer",
-    company: "Dafi Labs",
-    period: "2026-present",
+    role: "Frontend Developer",
+    period: "2020-present",
     description:
-      "Built and maintained REST APIs and React applications serving thousands of daily active users.",
+      "Building and maintaining REST APIs and React applications serving thousands of daily active users.",
   },
 ];
 

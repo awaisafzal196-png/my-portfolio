@@ -2,7 +2,7 @@ import { ScrollReveal } from "./ScrollReveal";
 const skillGroups = [
   {
     title: "Frontend",
-    skills: ["React", "Next.js", "Tailwind CSS"],
+    skills: ["HTML", "CSS", "JavaScript", "React", "Next.js", "Tailwind CSS"],
   },
   {
     title: "Backend & Database",

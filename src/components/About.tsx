@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ScrollReveal } from "./ScrollReveal";
 export default function About() {
   return (
@@ -22,42 +23,16 @@ export default function About() {
           </div>
 
           <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-start">
-          <div className="relative flex aspect-square max-w-sm items-center justify-center overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-100 to-emerald-50 dark:from-slate-900 dark:to-emerald-950/40 lg:aspect-auto lg:h-80">
-    {/* Decorative grid pattern */}
-    <div
-      className="absolute inset-0 opacity-[0.15]"
-      style={{
-        backgroundImage:
-          "linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)",
-        backgroundSize: "24px 24px",
-        color: "rgb(16 185 129)",
-      }}
-      aria-hidden="true"
-    />
-
-    {/* Decorative blobs */}
-    <div className="absolute -top-8 -right-8 h-32 w-32 rounded-full bg-emerald-400/20 dark:bg-emerald-500/10 blur-2xl" aria-hidden="true" />
-    <div className="absolute -bottom-8 -left-8 h-32 w-32 rounded-full bg-emerald-400/20 dark:bg-emerald-500/10 blur-2xl" aria-hidden="true" />
-
-    {/* Initials + tech badges */}
-    <div className="relative z-10 flex flex-col items-center gap-4">
-      <span className="font-display text-7xl font-bold text-slate-900 dark:text-slate-100">
-        MA
-      </span>
-      <div className="flex flex-wrap justify-center gap-2">
-        {["React", "Node.js", "Next.js"].map((tech) => (
-          <span
-            key={tech}
-            className="font-mono-accent rounded-full border border-emerald-500/30 bg-white/80 dark:bg-slate-950/60 px-3 py-1 text-xs font-medium text-emerald-700 dark:text-emerald-400 backdrop-blur-sm"
-          >
-            {tech}
-          </span>
-        ))}
-      </div>
-    </div>
-
-    <span className="sr-only">Profile photo placeholder</span>
-  </div>
+            <div className="relative flex aspect-square max-w-sm items-center justify-center overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 lg:aspect-auto lg:h-80">
+              <Image
+                src="/profile.jpg"
+                alt="Muhammad Awais"
+                fill
+                sizes="(max-width: 1024px) 100vw, 400px"
+                className="object-cover"
+                priority
+              />
+            </div>
 
             <div className="space-y-4 text-base leading-relaxed text-slate-600 dark:text-slate-300">
               <p>

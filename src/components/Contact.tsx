@@ -30,7 +30,7 @@ export default function Contact() {
               <address className="mt-8 space-y-3 not-italic text-slate-600 dark:text-slate-400">
                 <p>
                   <span className="font-medium text-slate-900 dark:text-slate-200">Email:</span>{" "}
-                  
+                  <a
                     href="mailto:awaisafzal196@gmail.com"
                     className="text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 dark:hover:text-emerald-300"
                   >

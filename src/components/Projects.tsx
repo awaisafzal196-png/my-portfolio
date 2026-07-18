@@ -76,7 +76,7 @@ export default function Projects() {
                     </li>
                   ))}
                 </ul>
-                
+                <a
                   href={project.href}
                   className="mt-6 inline-flex items-center text-sm font-semibold text-emerald-600 dark:text-emerald-400 transition group-hover:text-emerald-500 dark:group-hover:text-emerald-300"
                   aria-label={`View ${project.title}`}
